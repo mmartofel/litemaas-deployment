@@ -1,0 +1,11 @@
+kind: OAuthClient
+apiVersion: oauth.openshift.io/v1
+metadata:
+  name: litemaas-oauth-client
+secret: litemaas-oauth-secret
+redirectURIs:
+  - http://localhost:8080/api/auth/callback # Container/Direct
+  - http://localhost:8081/api/auth/callback # Backend direct
+  - http://localhost:3000/api/auth/callback # Vite development
+  - https://litemaas-litemaas.${CLUSTER_DOMAIN_NAME}/api/auth/callback
+grantMethod: auto

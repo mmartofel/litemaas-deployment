@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: ${NAMESPACE}-cpu-mem-quota
+  namespace: ${NAMESPACE}
+spec:
+  hard:
+    cpu: '24'
+    memory: 48Gi
+    pods: '10'

@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: llama
+  namespace: litemaas
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/mmartofel/'
+  labels:
+    app: llama-server
+    app.kubernetes.io/component: llama-server
+    app.kubernetes.io/instance: llama-server
+spec:
+  ports:
+    - name: 8000-tcp
+      protocol: TCP
+      port: 8000
+      targetPort: 11434
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: llama-server

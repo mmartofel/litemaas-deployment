@@ -1,0 +1,59 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: llama-server
+  namespace: litemaas
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/mmartofel/'
+  labels:
+    app: llama-server
+    app.kubernetes.io/component: AI
+    app.kubernetes.io/name: llama-server
+    app.kubernetes.io/part-of: 'LLM-SERVER'
+    app.openshift.io/runtime: golang
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-server
+  template:
+    metadata:
+      labels:
+        app: llama-server
+    spec:
+      containers:
+        - name: container
+          image: 'ollama/ollama:latest'
+          ports:
+            - name: http
+              containerPort: 11434
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '6'
+              memory: 20Gi
+              # nvidia.com/gpu: "1"
+            requests:
+              cpu: '4'
+              memory: 6Gi
+              # nvidia.com/gpu: "1"
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-models
+      volumes:
+        - name: ollama-models
+          persistentVolumeClaim:
+            claimName: ollama-pvc
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

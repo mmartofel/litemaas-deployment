@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-pvc
+  namespace: litemaas
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/mmartofel/'
+  labels:
+    app: llama-server
+    app.kubernetes.io/component: llama-server
+    app.kubernetes.io/instance: llama-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

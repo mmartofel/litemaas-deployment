@@ -45,3 +45,6 @@ venv
 
 # Remove kustomization file
 kustomization.yaml
+
+# Remove any other files that should not be tracked by git
+key.txt

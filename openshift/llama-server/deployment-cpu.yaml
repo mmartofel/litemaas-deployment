@@ -31,11 +31,11 @@ spec:
           resources:
             limits:
               cpu: '6'
-              memory: 20Gi
+              memory: 25Gi
               # nvidia.com/gpu: "1"
             requests:
               cpu: '4'
-              memory: 6Gi
+              memory: 18Gi
               # nvidia.com/gpu: "1"
           volumeMounts:
             - mountPath: /root/.ollama

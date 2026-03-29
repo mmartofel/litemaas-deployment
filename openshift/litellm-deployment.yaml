@@ -38,7 +38,7 @@ spec:
                   key: database-url
       containers:
         - name: litellm
-          image: ghcr.io/berriai/litellm:v1.80.5.rc.2
+          image: quay.io/rh-aiservices-bu/litellm-non-root:main-v1.81.0-stable-custom
           imagePullPolicy: Always
           ports:
             - containerPort: 4000

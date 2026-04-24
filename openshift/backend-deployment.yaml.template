@@ -114,6 +114,13 @@ spec:
                   name: backend-secret
                   key: litellm-api-key
 
+            # TLS verification for node.js
+            - name: NODE_TLS_REJECT_UNAUTHORIZED
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: node_tls_reject_unauthorized
+
             # Backend API Rate Limiting (NOT for LLM requests)
             - name: RATE_LIMIT_MAX
               value: '1000'

@@ -33,7 +33,6 @@ The deployment uses a **template-based configuration system**:
 
 2. **Edit `user-values.env`** and customize the following **required values**:
    - `LITEMAAS_VERSION` - LiteMaaS version to deploy (e.g., `0.1.2`)
-   - `CLUSTER_DOMAIN_NAME` - Your OpenShift cluster domain (e.g., `apps.cluster.example.com`)
    - `NAMESPACE` - Namespace/project name (e.g., `litemaas`)
    - `PG_ADMIN_PASSWORD` - Secure PostgreSQL password (generate with `openssl rand -base64 32`)
    - `JWT_SECRET` - Secure JWT signing key (generate with `openssl rand -base64 32`)
@@ -68,7 +67,7 @@ The deployment uses a **template-based configuration system**:
    # - kustomization.yaml
    ```
 
-> **Template System**: Files ending in `.template` are processed by `preparation.sh` using environment variable substitution from `user-values.env`. This generates `.local` files with your actual configuration values.
+> **Template System**: Files ending in `.template` are processed by `preparation.sh` using environment variable substitution from `user-values.env`. This generates `.local` files with your actual configuration values. `CLUSTER_DOMAIN_NAME` is auto-detected from the live cluster (`oc get ingresses.config/cluster`) and does not need to be set manually.
 
 > 📚 **Optional Configuration**: The deployment uses sensible defaults for rate limiting, user quotas, and caching. To customize these values, see the [Configuration Guide](../../docs/deployment/configuration.md).
 
